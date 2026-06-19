@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>
+
+AI Learning Path
+
+</title>
+
+<link
+rel="stylesheet"
+href="{{ url_for(
+'static',
+filename='style.css'
+) }}">
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+<h1>
+
+AI Learning Path
+
+</h1>
+
+<form
+action="/predict"
+method="POST"
+>
+
+Course
+
+<select
+name="course"
+>
+
+<option value="0">
+
+AIML
+
+</option>
+
+<option value="1">
+
+Web Development
+
+</option>
+
+<option value="2">
+
+Data Science
+
+</option>
+
+<option value="3">
+
+Cloud
+
+</option>
+
+</select>
+
+
+Skill
+
+<select
+name="skill"
+>
+
+<option value="0">
+
+Beginner
+
+</option>
+
+<option value="1">
+
+Intermediate
+
+</option>
+
+<option value="2">
+
+Advanced
+
+</option>
+
+</select>
+
+
+Hours
+
+<input
+name="hours"
+type="number"
+required
+>
+
+
+Quiz
+
+<input
+name="quiz"
+type="number"
+required
+>
+
+
+<button>
+
+Predict
+
+</button>
+
+</form>
+
+</div>
+
+</body>
+
+</html>
