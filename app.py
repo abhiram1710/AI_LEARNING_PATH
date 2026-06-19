@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session
 
-import tensorflow as tf
+from keras.models import load_model
 import numpy as np
 import matplotlib.pyplot as plt
 import sqlite3
@@ -54,7 +54,7 @@ conn.commit()
 
 # MODEL
 
-model = tf.keras.models.load_model(
+model = load_model(
 "models/path_model.keras"
 )
 
