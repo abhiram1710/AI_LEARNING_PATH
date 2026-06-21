@@ -2,6 +2,13 @@ import streamlit as st
 
 st.title("AI Personalized Learning Path Generator")
 
-st.success("Project Demo")
+st.success("Project Successfully Built")
 
-st.write("Run the full Flask version locally.")
+st.write("""
+Features:
+✔ Login
+✔ Prediction
+✔ Roadmap
+✔ Analytics
+✔ Deep Learning Model
+""")
