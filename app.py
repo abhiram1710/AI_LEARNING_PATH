@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session
 
-from keras.models import load_model
+import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import sqlite3
@@ -54,10 +54,9 @@ conn.commit()
 
 # MODEL
 
-model = load_model(
+model = tf.keras.models.load_model(
 "models/path_model.keras"
 )
-
 labels = {
 
 0:"Python Basics",
