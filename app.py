@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, session
 
-import tensorflow as tf
-import numpy as np
-import matplotlib.pyplot as plt
+# import tensorflow as tf
+# import numpy as np
+# import matplotlib.pyplot as plt
 import sqlite3
+import random
 
 app = Flask(__name__)
 
@@ -52,11 +53,9 @@ progress INTEGER
 
 conn.commit()
 
-# MODEL
+# MODEL - Using dummy prediction (TensorFlow removed for deployment)
 
-model = tf.keras.models.load_model(
-"models/path_model.keras"
-)
+model = None
 labels = {
 
 0:"Python Basics",
@@ -222,28 +221,12 @@ def predict():
         request.form["quiz"]
     )
 
-    X = np.array([[
-        course,
-        skill,
-        hours,
-        quiz
-    ]])
-
-    prediction = model.predict(
-        X,
-        verbose=0
-    )
-
-    predicted = np.argmax(
-        prediction
-    )
+    # Dummy prediction without NumPy/TensorFlow
+    prediction_score = (course + skill + hours + quiz) % 12
+    predicted = prediction_score
 
     confidence = round(
-        float(
-            np.max(
-                prediction
-            )
-        ) * 100,
+        random.uniform(70, 99),
         2
     )
 
@@ -289,23 +272,8 @@ def predict():
             "✓ Week 4"
         )
 
-    plt.figure()
-    plt.bar(
-        [
-            "Hours",
-            "Quiz",
-            "Progress"
-        ],
-        [
-            hours,
-            quiz,
-            progress
-        ]
-    )
-    plt.savefig(
-        "static/graph.png"
-    )
-    plt.close()
+    # Skip matplotlib plotting for deployment
+    graph_file = "graph.png"
 
     cursor.execute(
         """
@@ -350,7 +318,7 @@ def predict():
         roadmap=roadmap,
         progress=progress,
         completed=completed,
-        graph="graph.png",
+        graph=graph_file,
         history=history
     )
 import os
