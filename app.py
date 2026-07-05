@@ -124,13 +124,21 @@ roadmaps = {
 
 @app.route("/")
 def home():
-    return render_template(
-    "index.html"
-)
+    # Check if user is logged in
+    if "user" in session:
+        return render_template("index.html", username=session["user"])
+    else:
+        # Redirect to login if not authenticated
+        return render_template("login.html")
 
 @app.route("/health")
 def health():
     return {"status": "ok"}, 200
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return render_template("login.html")
 @app.route(
 "/register",
 methods=["GET","POST"]
@@ -196,8 +204,9 @@ def login():
 
             if user:
                 session["user"] = username
+                # Redirect to home page (now shows index.html)
                 return render_template(
-                    "dashboard.html",
+                    "index.html",
                     username=username
                 )
 
@@ -212,17 +221,13 @@ def login():
 
 @app.route("/dashboard")
 def dashboard():
-    
-    
+    if "user" not in session:
+        return render_template("login.html")
     
     return render_template(
         "dashboard.html",
-
-    username=session.get(
-        "user"
-    )   
-
-)
+        username=session.get("user")   
+    )
 
 @app.route(
 "/predict",
@@ -230,6 +235,9 @@ methods=["POST"]
 )
 
 def predict():
+    if "user" not in session:
+        return render_template("login.html"), 401
+    
     try:
         course = int(
             request.form.get("course", 0)
