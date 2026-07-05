@@ -24,11 +24,15 @@ filename='style.css'
 
 <div class="container">
 
-<h1>
-
-AI Learning Path
-
-</h1>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h1>AI Learning Path</h1>
+    <div>
+        {% if username %}
+            <p style="margin: 0; margin-right: 15px;">Welcome, <strong>{{ username }}</strong></p>
+            <a href="/logout" style="padding: 8px 15px; background: #ff4444; color: white; text-decoration: none; border-radius: 4px;">Logout</a>
+        {% endif %}
+    </div>
+</div>
 
 <form
 action="/predict"
